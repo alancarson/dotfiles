@@ -113,14 +113,19 @@ if ! shopt -oq posix; then
   fi
 fi
 
-SCAN_BUILD_PATH="/home/lskillen/work/llvm/llvm/tools/clang/tools/scan-build"
-SCAN_VIEW_PATH="/home/lskillen/work/llvm/llvm/tools/clang/tools/scan-view"
+LIB_X86=/usr/lib/x86_64-linux-gnu
+LIB_LOCAL=/usr/local/lib
+LIB_OPENMAMA=/opt/openmama/lib
+LIB_VULCAN=/opt/vulcan/lib
+
+SCAN_BUILD_PATH="/home/acarson/vulcan/llvm/llvm/tools/clang/tools/scan-build"
+SCAN_VIEW_PATH="/home/acarson/vulcan/llvm/llvm/tools/clang/tools/scan-view"
 
 set -o vi
 
-export PATH="$PATH:$SCAN_BUILD_PATH:$SCAN_VIEW_PATH"
-export CLASSPATH="$HOME/work/antlr/antlr-4.4-complete.jar:$HOME/work/antlr/antlr-runtime-4.4.jar"
-export LD_LIBRARY_PATH="/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib:/opt/openmama/lib:/opt/vulcan/lib"
+export PATH="$HOME/.local/bin:$SCAN_BUILD_PATH:$SCAN_VIEW_PATH:$PATH"
+export CLASSPATH=".:/usr/local/lib/antlr-4.1-complete.jar:$CLASSPATH"
+export LD_LIBRARY_PATH=$LIB_X86:$LIB_LOCAL:$LIB_OPENMAMA:$LIB_VULCAN:$LD_LIBRARY_PATH
 export EDITOR=vim
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 export PYTHONDONTWRITEBYTECODE=1
