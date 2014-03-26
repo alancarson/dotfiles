@@ -65,7 +65,7 @@ set wildmenu                   " Enhanced command line completion
 set hidden                     " Handle multiple buffers better.
 set title                      " Set the terminals title
 "set cursorline                 " Highlight current line
-set number                     " Enable line numbers
+"set number                     " Enable line numbers
 set ruler                      " Always display row/col (cursor) position.
 set nolist                     " Don't visualise characters
 set novisualbell noerrorbells  " Turn bells off
@@ -87,7 +87,7 @@ set clipboard=unnamed
 
 set nobackup
 
-color Tomorrow-Night-Bright    " Works well on my machine ;)
+"color Tomorrow-Night-Bright    " Works well on my machine ;)
 hi Normal ctermbg=NONE
 
 source $VIMRUNTIME/ftplugin/man.vim

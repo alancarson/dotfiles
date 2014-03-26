@@ -6,8 +6,8 @@
 [apply]
     whitespace = fix
 [user]
-	name = Lee Skillen
-	email = lskillen@vulcanft.com
+	name = Alan Carson
+	email = acarson@vulcanft.com
 [core]
 	editor = vim
 [merge]
@@ -24,7 +24,7 @@
     confirm = always
     smtpencryption = tls
     smtpserver = smtp.gmail.com
-    smtpuser = lskillen@vulcanft.com
+    smtpuser = acarson@vulcanft.com
     smtpserverport = 587
     smtpsslcertpath = /etc/ssl/certs/ca-bundle.trust.crt
     suppresscc = self

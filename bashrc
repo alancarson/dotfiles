@@ -118,14 +118,14 @@ LIB_LOCAL=/usr/local/lib
 LIB_OPENMAMA=/opt/openmama/lib
 LIB_VULCAN=/opt/vulcan/lib
 
-SCAN_BUILD_PATH="/home/lskillen/work/llvm/llvm/tools/clang/tools/scan-build"
-SCAN_VIEW_PATH="/home/lskillen/work/llvm/llvm/tools/clang/tools/scan-view"
+SCAN_BUILD_PATH="/home/acarson/vulcan/llvm/llvm/tools/clang/tools/scan-build"
+SCAN_VIEW_PATH="/home/acarson/vulcan/llvm/llvm/tools/clang/tools/scan-view"
 
 set -o vi
 
 export PATH="$HOME/.local/bin:$SCAN_BUILD_PATH:$SCAN_VIEW_PATH:$PATH"
 export CLASSPATH=".:/usr/local/lib/antlr-4.1-complete.jar:$CLASSPATH"
-export LD_LIBRARY_PATH=$LIB_X86:$LIB_LOCAL:$LIB_OPENMAMA:$LIB_VULCAN
+export LD_LIBRARY_PATH=$LIB_X86:$LIB_LOCAL:$LIB_OPENMAMA:$LIB_VULCAN:$LD_LIBRARY_PATH
 export EDITOR=vim
 
 if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
