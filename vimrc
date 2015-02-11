@@ -12,18 +12,6 @@ if &loadplugins
     " Vim Vundle Package Manager
     Plugin 'gmarik/vundle'
 
-    " Code Semantic Completion
-    if v:version > 703 || v:version == 703 && has("patch584")
-        Plugin 'Valloric/YouCompleteMe'
-        nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-        let g:ycm_autoclose_preview_window_after_completion = 1
-        let g:ycm_min_num_of_chars_for_completion = 2
-        let g:ycm_confirm_extra_conf = 0
-        let g:ycm_seed_identifiers_with_syntax = 1
-        let g:ycm_register_as_syntastic_checker = 1
-        let g:syntastic_python_checkers = ['flake8']
-    endif
-
     " JIT Code Compilation
     Plugin 'scrooloose/syntastic'
     nnoremap <leader>e :Errors<CR>
@@ -33,6 +21,22 @@ if &loadplugins
     let g:syntastic_error_symbol = '✗'
     let g:syntastic_warning_symbol = '!'
     let g:syntastic_enable_highlighting = 1
+    let g:syntastic_python_checkers = ['pyflakes', 'flake8']
+    let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+
+    " Code Semantic Completion
+    if executable("clang")
+        if v:version > 703 || v:version == 703 && has("patch584")
+            Plugin 'Valloric/YouCompleteMe'
+            nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+            let g:ycm_autoclose_preview_window_after_completion = 1
+            let g:ycm_min_num_of_chars_for_completion = 2
+            let g:ycm_confirm_extra_conf = 0
+            let g:ycm_seed_identifiers_with_syntax = 1
+            let g:ycm_register_as_syntastic_checker = 1
+            let g:ycm_key_invoke_completion = '<leader>i'
+        endif
+    endif
 
     " Intensely orgasmic commenting (their words, not mine)
     Plugin 'scrooloose/nerdcommenter'
@@ -69,66 +73,14 @@ if &loadplugins
     " Gist support
     Plugin 'mattn/gist-vim'
     let g:gist_post_private = 1
+
+    " Enable better vim EOL whitespace support
+    Plugin 'ntpeters/vim-better-whitespace'
+    call vundle#end()
 endif
 
-filetype plugin indent on     " required!
-
-autocmd BufReadPre SConstruct set filetype=python
-autocmd BufReadPre SConscript set filetype=python
-
-au FileType python set autoindent
-au FileType python set smartindent
-au FileType python set textwidth=79 " PEP-8 Friendly
-
-syntax enable                  " Enable syntax highlighting
-set showcmd                    " Show incomplete commands
-set showmode                   " Show mode we're in
-set showmatch                  " Show parantheses matching
-
-set nowrap                     " Don't wrap lines automatically
-set tabstop=4 shiftwidth=4     " Tabs = 4 spaces
-set expandtab                  " Use spaces, not tabs
-set backspace=indent,eol,start " Backspace through everything in insert mode
-"set autoindent                 " Match indentation of previous line
-set noautoindent
-
-set incsearch                  " Find as you type search
-set hlsearch                   " Highlight search terms
-set ignorecase smartcase       " Make searching case insensitive, unless specified
-
-set foldmethod=syntax          " Fold based on indentation
-set foldnestmax=3              " Deepest fold is 3 levels
-set nofoldenable               " Don't fold by default
-
-set ttyfast                    " Smoother changes
-set wildmenu                   " Enhanced command line completion
-set hidden                     " Handle multiple buffers better.
-set title                      " Set the terminals title
-"set cursorline                 " Highlight current line
-"set number                     " Enable line numbers
-set ruler                      " Always display row/col (cursor) position.
-set nolist                     " Don't visualise characters
-set novisualbell noerrorbells  " Turn bells off
-set scrolloff=4                " Keep cursor <n> characters away from top/bottom
-set sidescrolloff=7            " Keep cursor <n> characters away from left/right
-set history=1000               " Store 1000 commands in history buffer
-set mouse=a                    " XTerm-style mouse (make selections easier)
-"set exrc                       " enable per-directory .vimrc files
-"set secure                     " disable unsafe commands in local .vimrc files
-
-set ls=2                       " Always show status line
-"set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
-
-set t_Co=256                   " Set terminal to 256 colours
-set background=dark            " Dark backgrounds
-
-set completeopt+=preview
-set backupdir=~/.vim/backup/
-set directory=/tmp/
-set clipboard=unnamed
-
-set nobackup
-set noswapfile
+filetype plugin indent on " required!
+syntax enable             " Enable syntax highlighting
 
 "color Tomorrow-Night-Bright    " Works well on my machine ;)
 hi Normal ctermbg=NONE
@@ -148,46 +100,76 @@ nnoremap <F12> ]czz
 " This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
-" ex command for toggling hex mode - define mapping if desired
-command -bar Hexmode call ToggleHex()
-nnoremap <C-H> :Hexmode<CR>
-inoremap <C-H> <Esc>:Hexmode<CR>
-vnoremap <C-H> :<C-U>Hexmode<CR>
+" Standard options
+set autowrite	          " Automatically save before commands like :next and :make
+set autoindent            " Match indentation of previous line
+set background=dark       " Dark backgrounds
+set backspace=indent,eol,start " Backspace through everything in insert mode
+set clipboard=unnamedplus " Attempt to use clipboardplus for cp
+set expandtab             " Use spaces, not tabs
+set exrc                  " enable per-directory .vimrc files
+set foldmethod=syntax     " Fold based on indentation
+set foldnestmax=3         " Deepest fold is 3 levels
+set hidden		          " Hide buffers when they are abandoned
+set history=1000          " Store 1000 commands in history buffer
+set hlsearch              " Highlight search terms
+set ignorecase	          " Do case insensitive matching
+set incsearch	          " Incremental search
+set ls=2                  " Always show status line
+set mouse=a		          " Enable mouse usage (all modes)
+set noerrorbells          " Turn error bells off
+set nolist                " Don't visualise characters
+set novisualbell          " Turn visual bells off
+set ruler                 " Always display row/col (cursor) position.
+set scrolloff=4           " Keep cursor <n> characters away from top/bottom
+set secure                " disable unsafe commands in local .vimrc files
+set shiftwidth=4          " Tabs = 4 spaces
+set showcmd		          " Show (partial) command in status line.
+set showmatch	          " Show matching brackets
+set showmatch             " Show matching parentheses
+set sidescrolloff=7       " Keep cursor <n> characters away from left/right
+set smartcase	          " Do smart case matching
+set tabstop=4             " Tabs = 4 spaces
+set t_Co=256              " Set terminal to 256 colours
+set title                 " Set the terminals title
+set ttyfast               " Smoother changes
+set wildmenu              " Enhanced command line completion
 
-" helper function to toggle hex mode
-function ToggleHex()
-    " hex mode should be considered a read-only operation
-    " save values for modified and read-only for restoration later,
-    " and clear the read-only flag for now
-    let l:modified=&mod
-    let l:oldreadonly=&readonly
-    let &readonly=0
-    let l:oldmodifiable=&modifiable
-    let &modifiable=1
-    if !exists("b:editHex") || !b:editHex
-        " save old options
-        let b:oldft=&ft
-        let b:oldbin=&bin
-        " set new options
-        setlocal binary " make sure it overrides any textwidth, etc.
-        let &ft="xxd"
-        " set status
-        let b:editHex=1
-        " switch to hex editor
-        %!xxd
-    else
-        " restore old options
-        let &ft=b:oldft
-        if !b:oldbin
-            setlocal nobinary
-        endif
-        " set status
-        let b:editHex=0
-        " return to normal editing
-        %!xxd -r
-    endif
-    " restore values for modified and read only state
-    let &mod=l:modified
-    let &readonly=l:oldreadonly
-    let &modifiable=l:oldmodifiable
+" Customisations
+set completeopt+=preview
+set directory=/tmp/
+set nobackup
+set nofoldenable          " Don't fold by default
+set nowrap                " Don't wrap lines automatically
+set number                " Enable line numbers
+
+autocmd BufReadPre SConstruct set filetype=python
+autocmd BufReadPre SConscript set filetype=python
+autocmd BufReadPre *.yaml, *.yml set filetype=yaml
+
+au FileType python set autoindent
+au FileType python set textwidth=79 " PEP-8 Friendly
+
+au FileType ruby set autoindent
+au FileType ruby set textwidth=79            " Ruby Friendly
+au FileType ruby set shiftwidth=2 tabstop=2  " Ruby standard
+
+au FileType yaml set autoindent
+au FileType yaml set shiftwidth=2 tabstop=2  " YAML recommendation
+
+" This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" Strip whitespaces endings on save
+function s:StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
 endfunction
+autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call s:StripTrailingWhitespaces()
+
+" Source user local .vimrc
+if filereadable(glob("$HOME/.vimrc.local"))
+    source $HOME/.vimrc.local
+endif
