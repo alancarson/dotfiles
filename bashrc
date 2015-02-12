@@ -113,22 +113,18 @@ if ! shopt -oq posix; then
   fi
 fi
 
-LIB_X86=/usr/lib/x86_64-linux-gnu
-LIB_LOCAL=/usr/local/lib
-LIB_OPENMAMA=/opt/openmama/lib
-LIB_VULCAN=/opt/vulcan/lib
-
-SCAN_BUILD_PATH="/home/acarson/vulcan/llvm/llvm/tools/clang/tools/scan-build"
-SCAN_VIEW_PATH="/home/acarson/vulcan/llvm/llvm/tools/clang/tools/scan-view"
-
-export PATH="$HOME/.local/bin:$SCAN_BUILD_PATH:$SCAN_VIEW_PATH:$PATH"
-export CLASSPATH=".:/usr/local/lib/antlr-4.1-complete.jar:$CLASSPATH"
-export LD_LIBRARY_PATH=$LIB_X86:$LIB_LOCAL:$LIB_OPENMAMA:$LIB_VULCAN:$LD_LIBRARY_PATH
+export PATH="/bin:/usr/sbin:/usr/bin"
+export LD_LIBRARY_PATH="/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib:/opt/openmama/lib:/opt/vulcan/lib"
 export EDITOR=vim
+export VISUAL=vim
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 export PYTHONDONTWRITEBYTECODE=1
 
-if [ -f ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh ]; then
-    export PATH=~/.vim/bundle/powerline/scripts:$PATH
+POWERLINE_HOME="$HOME/.vim/bundle/powerline"
+if [ -f "$POWERLINE_HOME/powerline/bindings/bash/powerline.sh" ]; then
+    if [ "${PATH/$POWERLINE_HOME/}" != "$POWERLINE_HOME" ]; then
+        export PATH="$PATH:$POWERLINE_HOME/scripts"
+    fi
+
     source ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
 fi
