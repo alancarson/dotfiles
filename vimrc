@@ -82,7 +82,7 @@ endif
 filetype plugin indent on " required!
 syntax enable             " Enable syntax highlighting
 
-"color Tomorrow-Night-Bright    " Works well on my machine ;)
+color Tomorrow-Night-Bright    " Works well on my machine ;)
 hi Normal ctermbg=NONE
 
 " Map F1 to man page on current word (or use K)
