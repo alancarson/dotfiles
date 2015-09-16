@@ -113,8 +113,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="/bin:/usr/sbin:/usr/bin:/usr/local/sbin/:/usr/local/bin"
-export LD_LIBRARY_PATH="/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/local/lib:/opt/openmama/lib:/opt/vulcan/lib"
 export EDITOR=vim
 export VISUAL=vim
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
@@ -125,7 +123,7 @@ if [ $? -eq 0 ]; then
     export POWERLINE_HOME=$(pip show powerline-status | grep Location: | awk '{ print $2 }')
 fi
 
-if [ "$POWERLINE_HOME" == "" ]; then
+if [ -z "$POWERLINE_HOME" ]; then
     export POWERLINE_HOME="$HOME/.vim/bundle/powerline"
 fi
 
@@ -147,6 +145,8 @@ if [ -f "$POWERLINE_BASH" ]; then
     export POWERLINE_COMMAND
     export POWERLINE_CONFIG_COMMAND
 fi
+
+which chef &>/dev/null && eval "$(chef shell-init bash)"
 
 if [ -f "$HOME/.bashrc.local" ]; then
     source "$HOME/.bashrc.local"
