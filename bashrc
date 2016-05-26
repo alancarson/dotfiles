@@ -75,7 +75,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls --color=auto -h --group-directories-first'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -121,7 +121,7 @@ export PYTHONDONTWRITEBYTECODE=1
 
 command -v pip &>/dev/null
 if [ $? -eq 0 ]; then
-    export POWERLINE_HOME=$(pip show powerline-status | grep Location: | awk '{ print $2 }')
+    export POWERLINE_HOME="$(pip show powerline-status | grep Location: | awk '{ print $2 }')"
 fi
 
 if [ -z "$POWERLINE_HOME" ]; then

@@ -128,6 +128,11 @@ if isdirectory(vundlehome) && &loadplugins
   Plugin 'reedes/vim-pencil'
   let g:pencil#wrapModeDefault = 'soft'
 
+  " HTML Tag Matching
+  Plugin 'valloric/MatchTagAlways'
+  let g:mta_use_matchparen_group = 1
+  nnoremap <leader>% :MtaJumpToOtherTag<cr>
+
   augroup pencil
     autocmd!
     autocmd FileType markdown,mkd call pencil#init()
@@ -167,6 +172,7 @@ set autoindent            " Match indentation of previous line
 set backspace=indent,eol,start " Backspace through everything in insert mode
 set background=dark       " Dark background
 set clipboard=unnamedplus " Attempt to use clipboardplus for cp
+set encoding=utf-8        " Use UTF-8 for character encoding
 set expandtab             " Use spaces, not tabs
 set exrc                  " enable per-directory .vimrc files
 set foldmethod=indent     " Fold based on indentation
@@ -251,6 +257,10 @@ au FileType yaml set shiftwidth=2 tabstop=2  " YAML recommendation
 au FileType json set shiftwidth=2 tabstop=2  " JSON recommendation
 
 au FileType vim set shiftwidth=2 tabstop=2
+au FileType css set shiftwidth=2 tabstop=2
+
+au FileType text,markdown,html,htmldjango set textwidth=0
+au FileType html,htmldjango set shiftwidth=2 tabstop=2
 
 " This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
