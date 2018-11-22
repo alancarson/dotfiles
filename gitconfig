@@ -10,6 +10,7 @@
 [user]
 	name = Alan Carson
 	email = acarson@cloudsmith.io
+    signingkey = DDE716BE
 [core]
     editor = vim
     whitespace = trailing-space, space-before-tab
@@ -36,4 +37,11 @@
     suppresscc = self
     attachcopy = true
     attachcopyencoding = base64
+[commit]
+    gpgsign = true
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 
