@@ -48,3 +48,7 @@ command -v pulseaudio &>/dev/null && {
 }
 
 start-agent
+
+gpg-agent --daemon
+export GPG_AGENT_INFO=${HOME}/.gnupg/S.gpg-agent:$(pgrep gpg-agent):1
+export GPG_TTY=`tty`
