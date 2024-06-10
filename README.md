@@ -10,7 +10,7 @@ Hi!  This is the repository for my dotfiles setup, including:
 - YouCompleteMe for clang-based semantic completion of code [desktop].
 - The "libgcrypt11" package for ubuntu 15.04 (for spotify, gah) [desktop].
 
-Please refer the simple/extended usage to see how this works.
+Please refer the simple/[extended usage](#making-changes) to see how this works.
 
 Installation
 ------------
@@ -22,7 +22,7 @@ Installation
 The default setup will install for desktop environments and MUST be run under
 sudo in order to install system packages (etc.)
 
-Extended Usage
+## Extended Usage
 --------------
 
 ```
@@ -49,7 +49,7 @@ Usage: ./setup.sh [options]
   -h           Display usage (this text)
 ```
 
-Making Changes
+## Making Changes
 --------------
 
 If you want to submit changes back then please issue a pull request.
